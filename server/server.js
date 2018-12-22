@@ -5,6 +5,8 @@ import { MongoClient } from "mongodb";
 import template from "./../template";
 import devBundle from "./devBundle";
 
+const CURRENT_WORKING_DIR = process.cwd();
+const app = express();
 let port = process.env.PORT || 3000;
 const url = process.env.MONGODB_URI || "mongodb://localhost:27017/mernStartup";
 
@@ -17,9 +19,7 @@ MongoClient.connect(
   }
 );
 
-const CURRENT_WORKING_DIR = process.cwd();
 app.use("/dist", express.static(path.join(CURRENT_WORKING_DIR, "dist")));
-const app = express();
 
 app.get("/", (req, res) => {
   res.status(200).send(template());
